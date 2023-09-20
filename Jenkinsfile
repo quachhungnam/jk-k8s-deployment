@@ -4,7 +4,8 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-2'  // Thay đổi vùng AWS của bạn
         EKS_CLUSTER_NAME = 'my-eks-cluster'  // Thay đổi tên cluster EKS của bạn
-        DOCKER_IMAGE_NAME = 'my-app-image'  // Thay đổi tên Docker image của bạn
+        DOCKER_IMAGE_NAME = 'jenkins-k8s-deploy'  // Thay đổi tên Docker image của bạn
+        BUILD_NUMBER="1.2"
         // KUBECONFIG = credentials('my-kubeconfig-credentials') // Thay đổi tên credentials cho kubeconfig
     }
     
@@ -21,12 +22,12 @@ pipeline {
             steps {
                 echo "Build and Push Docker Image"
                 // Xây dựng ứng dụng và đóng gói vào Docker image
-                // script {
-                //     docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
-                //     docker.withRegistry('https://your-docker-registry', 'docker-credentials') {
-                //         docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}").push()
-                //     }
-                // }
+                script {
+                    docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-quachhungnam') {
+                        docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}").push()
+                    }
+                }
             }
         }
         
