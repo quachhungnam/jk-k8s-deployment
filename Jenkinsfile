@@ -10,6 +10,7 @@ pipeline {
   stages {
 
     stage('Checkout Source') {
+      echo "start checkout"
       steps {
          git 'https://github.com/quachhungnam/jk-k8s-deployment.git'
       }
@@ -25,7 +26,7 @@ pipeline {
 
     stage('Pushing Image') {
       environment {
-               registryCredential = 'dockerhub-credentials'
+               registryCredential = 'docker-quachhungnam'
            }
       steps{
         script {
