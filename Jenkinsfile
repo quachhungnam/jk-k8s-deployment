@@ -1,50 +1,40 @@
 pipeline {
-
-  environment {
-    dockerimagename = "bravinwasike/react-app"
-    dockerImage = ""
-  }
-
-  agent any
-
-  stages {
-
-    stage('Checkout Source') {
-      echo "start checkout"
-      steps {
-         git 'https://github.com/quachhungnam/jk-k8s-deployment.git'
-      }
-    }
-
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build dockerimagename
+    // agent { 
+    //     node {
+    //         label 'docker-agent-python'
+    //         }
+    //   }
+    agent any
+    // triggers {
+    //     pollSCM '* * * * *'
+    // }
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building.."
+                // sh '''
+                // cd myapp
+                // pip install -r requirements.txt
+                // '''
+            }
         }
-      }
-    }
-
-    stage('Pushing Image') {
-      environment {
-               registryCredential = 'docker-quachhungnam'
-           }
-      steps{
-        script {
-          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("latest")
-          }
+        // stage('Test') {
+        //     steps {
+        //         echo "Testing.."
+        //         sh '''
+        //         cd myapp
+        //         python3 hello.py
+        //         python3 hello.py --name=Brad
+        //         '''
+        //     }
+        // }
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
+            }
         }
-      }
     }
-
-    stage('Deploying React.js container to Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", "service.yaml")
-        }
-      }
-    }
-
-  }
-
 }
