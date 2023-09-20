@@ -19,8 +19,10 @@ pipeline {
         }
         
         stage('Build and Push Docker Image') {
-            docker {
-                image 'jenkins-k8s-deploy'
+            agent {
+                docker {
+                    image 'jenkins-k8s-deploy'
+                }
             }
             steps {
                 echo "Build and Push Docker Image"
