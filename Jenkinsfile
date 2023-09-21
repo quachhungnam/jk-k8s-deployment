@@ -24,7 +24,7 @@ pipeline {
                 // Xây dựng ứng dụng và đóng gói vào Docker image
                 script {
                     docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
-                    docker.withRegistry('https://hub.docker.com', 'docker-quachhungnam') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-quachhungnam') {
                         docker.image("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}").push()
                     }
                 }
