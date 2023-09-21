@@ -13,11 +13,11 @@ pipeline {
         stage('Init'){
             steps{
                 sh 'printenv'
-                if(env.GIT_BRANCH == "origin/main") {
+                if(${env.GIT_BRANCH} == "origin/main") {
                     echo "nhanh main"
-                } else if(env.GIT_BRANCH == "origin/staging") {
+                } else if(${env.GIT_BRANCH} == "origin/staging") {
                     echo "nhanh staging"
-                } else if(env.GIT_BRANCH == "origin/production") {
+                } else if(${env.GIT_BRANCH} == "origin/production") {
                     echo "nhanh production"
                 }
 
