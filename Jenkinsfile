@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-2'  // Thay đổi vùng AWS của bạn
         EKS_CLUSTER_NAME = 'my-eks-cluster'  // Thay đổi tên cluster EKS của bạn
-        DOCKER_IMAGE_NAME = 'jenkins-k8s-deploy'  // Thay đổi tên Docker image của bạn
+        DOCKER_IMAGE_NAME = 'quachhungnam/jenkins-k8s-deploy'  // Thay đổi tên Docker image của bạn
         BUILD_NUMBER="1.2"
         // KUBECONFIG = credentials('my-kubeconfig-credentials') // Thay đổi tên credentials cho kubeconfig
     }
