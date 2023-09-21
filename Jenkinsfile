@@ -24,7 +24,7 @@ pipeline {
                 // Xây dựng ứng dụng và đóng gói vào Docker image
                 script {
                     def customImage =docker.build("${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}")
-                    docker.withRegistry('https://registry.docker.io', 'docker-PAT') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-PAT') {
                         customImage.push()
                     }
                 }
