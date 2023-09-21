@@ -10,6 +10,12 @@ pipeline {
     }
     
     stages {
+        stage('Init'){
+            steps{
+                sh 'printenv'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM',
