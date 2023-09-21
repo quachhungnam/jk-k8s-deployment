@@ -7,18 +7,17 @@ pipeline {
         DOCKER_IMAGE_NAME = 'quachhungnam/jenkins-k8s-deploy'  // Thay đổi tên Docker image của bạn
         BUILD_NUMBER="1.2"
         // KUBECONFIG = credentials('my-kubeconfig-credentials') // Thay đổi tên credentials cho kubeconfig
-        GIT_BRANCH=env.GIT_BRANCH
     }
     
     stages {
         stage('Init'){
             steps{
                 sh 'printenv'
-                if(GIT_BRANCH == "origin/main") {
+                if(env.GIT_BRANCH == "origin/main") {
                     echo "nhanh main"
-                } else if(GIT_BRANCH == "origin/staging") {
+                } else if(env.GIT_BRANCH == "origin/staging") {
                     echo "nhanh staging"
-                } else if(GIT_BRANCH == "origin/production") {
+                } else if(env.GIT_BRANCH == "origin/production") {
                     echo "nhanh production"
                 }
 
